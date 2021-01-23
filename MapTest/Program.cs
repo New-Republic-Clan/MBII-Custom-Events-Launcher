@@ -112,7 +112,7 @@ namespace MapTest
 
             // Force MBMODE 2
             serverConfigData = File.ReadAllText(serverConfig);
-            serverConfigData = serverConfigData.Replace("seta g_Authenticity \"0\"", "seta g_Authenticity \"2\"");
+            serverConfigData = serverConfigData.Replace("g_Authenticity \"0\"", "g_Authenticity \"2\"");
             File.WriteAllText(serverConfig, serverConfigData);
 
             Console.WriteLine("----------------------------");
@@ -193,12 +193,12 @@ namespace MapTest
 
                 process.Start();
 
-                Thread.Sleep(5);
+                Thread.Sleep(20);
 
                 // Return to MBMODE 0
-                serverConfigData = File.ReadAllText(serverConfig);
-                serverConfigData = serverConfigData.Replace("seta g_Authenticity \"2\"", "seta g_Authenticity \"0\"");
-                File.WriteAllText(serverConfig, serverConfigData);
+                //serverConfigData = File.ReadAllText(serverConfig);
+                //serverConfigData = serverConfigData.Replace("g_Authenticity \"2\"", "g_Authenticity \"0\"");
+                //File.WriteAllText(serverConfig, serverConfigData);
 
                 Console.ReadLine();
 
