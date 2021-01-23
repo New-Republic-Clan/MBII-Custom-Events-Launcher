@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PublishTrimmed>true</PublishTrimmed>
+    <ApplicationIcon>jango-fett_icon-icons.com_76955.ico</ApplicationIcon>
+  </PropertyGroup>
+
+</Project>
