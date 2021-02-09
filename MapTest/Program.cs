@@ -117,7 +117,8 @@ namespace MapTest
 
             Console.WriteLine("----------------------------");
             Console.WriteLine($"OpenJK GameData Path: {openjkPath}");
-            Console.WriteLine($"Dedicated Server Application: {serverConfig}");
+            Console.WriteLine($"Dedicated Server Config File: {serverConfig}");
+            Console.WriteLine($"Dedicated Server Exe: {dedicatedEXE}");
             Console.WriteLine($"Client Application: {clientEXE}");
             Console.WriteLine("----------------------------");
             Console.WriteLine(" ");
@@ -171,16 +172,30 @@ namespace MapTest
             if (Directory.Exists(Path.GetDirectoryName(finalDestination)))
             {
 
-         
-                Console.WriteLine($"Launching Dedicated Server");
+        
+                var clientCommand = clientEXE + " + set fs_game \"MBII\" +connect 127.0.0.1:29071";
+                var serverCommand = dedicatedEXE + " +set dedicated 2 +set net_port 29071 +set fs_game \"MBII\" + exec \"server_config_default.cfg\" + set fs_direbeforepak \"1\" +set mbmode 2 +mbmode \"2\" +map \"{Path.GetFileName(map)}\"";
 
+                Console.WriteLine("Following Commands will be run");
+                Console.WriteLine($"Client Command: {clientCommand}");
+                Console.WriteLine($"Server Command: {serverCommand}");
+                Console.WriteLine("----------------------------");
 
-                new Thread(() =>
+                Console.WriteLine("Press Any Key to Proceed");
+                Console.ReadLine();
+
+                Console.WriteLine($"Launching Client");
+
+                var clientThread = new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
                     System.Diagnostics.Process.Start(clientEXE, "+ set fs_game \"MBII\" +connect 127.0.0.1:29071");
-                }).Start();
+                });
 
+                clientThread.Start();
+
+                Console.WriteLine($"Launching Dedicated Server");
+             
                 var startinfo = new ProcessStartInfo();
                 startinfo.FileName = dedicatedEXE;
                 startinfo.Arguments = $"+set dedicated 2 +set net_port 29071 +set fs_game \"MBII\" + exec \"server_config_default.cfg\" + set fs_direbeforepak \"1\" +set mbmode 2 +mbmode \"2\" +map \"{Path.GetFileName(map)}\"";
@@ -194,11 +209,6 @@ namespace MapTest
                 process.Start();
 
                 Thread.Sleep(20);
-
-                // Return to MBMODE 0
-                //serverConfigData = File.ReadAllText(serverConfig);
-                //serverConfigData = serverConfigData.Replace("g_Authenticity \"2\"", "g_Authenticity \"0\"");
-                //File.WriteAllText(serverConfig, serverConfigData);
 
                 Console.ReadLine();
 
