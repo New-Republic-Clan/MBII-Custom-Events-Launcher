@@ -109,7 +109,6 @@ namespace MapTest
             }
             
 
-
             // Force MBMODE 2
             serverConfigData = File.ReadAllText(serverConfig);
             serverConfigData = serverConfigData.Replace("g_Authenticity \"0\"", "g_Authenticity \"2\"");
@@ -174,15 +173,14 @@ namespace MapTest
 
         
                 var clientCommand = clientEXE + " + set fs_game \"MBII\" +connect 127.0.0.1:29071";
-                var serverCommand = dedicatedEXE + " +set dedicated 2 +set net_port 29071 +set fs_game \"MBII\" + exec \"server_config_default.cfg\" + set fs_direbeforepak \"1\" +set mbmode 2 +mbmode \"2\" +map \"{Path.GetFileName(map)}\"";
+                var serverCommand = dedicatedEXE + " +set dedicated 2 +set net_port 29071 +set fs_game \"MBII\" + exec \"server_config_default.cfg\" + set fs_direbeforepak \"1\" +set mbmode 2 +mbmode \"2\" +devmap \"{Path.GetFileName(map)}\"";
 
                 Console.WriteLine("Following Commands will be run");
                 Console.WriteLine($"Client Command: {clientCommand}");
                 Console.WriteLine($"Server Command: {serverCommand}");
                 Console.WriteLine("----------------------------");
 
-                Console.WriteLine("Press Any Key to Proceed");
-                Console.ReadLine();
+                Thread.Sleep(2);
 
                 Console.WriteLine($"Launching Client");
 
